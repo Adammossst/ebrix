@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adamchaniago0025.ebrix.data.ScanData
 import com.adamchaniago0025.ebrix.viewmodel.ScanViewModel
+import com.adamchaniago0025.ebrix.ocr.OCRProcessor // 1. TAMBAHKAN IMPORT INI
 import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,6 +31,9 @@ fun FormScreen(
 ) {
     var petak by remember { mutableStateOf("") }
     var brix by remember { mutableStateOf("") }
+
+    // 2. TARO INISIALISASI DI SINI (Di atas Scaffold)
+    val ocrProcessor = remember { OCRProcessor() }
 
     Scaffold(
         topBar = {
@@ -62,20 +66,36 @@ fun FormScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
+            // 3. CONTOH TOMBOL UNTUK SCAN OCR
             Button(
                 onClick = {
-                    // Simulasi simpan data sementara
+                    // Logika Scan OCR
+                    // Nantinya imageBytes didapat dari hasil foto kamera
+                    val dummyImage = ByteArray(0)
+
+                    ocrProcessor.recognizeText(dummyImage) { hasilTeks ->
+                        // Jika hasil OCR adalah angka Brix, masukkan ke state brix
+                        brix = hasilTeks
+                    }
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Scan Teks dari Kamera")
+            }
+
+            Button(
+                onClick = {
                     val newData = ScanData(
                         id = Random.nextInt(1000, 9999),
                         petak = petak,
-                        imageBytes = null, // Akan diisi logika byte array kamera nantinya
+                        imageBytes = null,
                         brix = brix,
-                        lat = "0.0", // Perlu expect/actual untuk GPS
+                        lat = "0.0",
                         lon = "0.0",
                         timestamp = "Sekarang"
                     )
                     viewModel.addData(newData)
-                    onBack() // Kembali ke Home setelah simpan
+                    onBack()
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
