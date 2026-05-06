@@ -82,6 +82,10 @@ android {
         versionName = "1.0"
     }
     packaging {
+        jniLibs {
+            // Memaksa sistem untuk melakukan alignment 16 KB pada library native
+            useLegacyPackaging = true
+        }
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
