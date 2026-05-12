@@ -32,7 +32,7 @@ fun App() {
 @Composable
 fun AppNavInternal() {
     val navController = rememberNavController()
-    val viewModel: ScanViewModel = viewModel()
+    val viewModel: ScanViewModel = viewModel { ScanViewModel() }
 
     NavHost(navController, startDestination = "home") {
         composable("home") {

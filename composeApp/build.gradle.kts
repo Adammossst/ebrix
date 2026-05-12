@@ -34,7 +34,6 @@ kotlin {
             dependencies {
                 implementation(libs.compose.uiToolingPreview)
                 implementation(libs.androidx.activity.compose)
-
                 // Dependency ML Kit untuk OCR
                 implementation("com.google.mlkit:text-recognition:16.0.0")
             }
@@ -49,9 +48,10 @@ kotlin {
                 implementation(libs.compose.ui)
                 implementation(libs.compose.components.resources)
                 implementation(libs.compose.uiToolingPreview)
-                implementation(libs.androidx.lifecycle.viewmodelCompose)
-                implementation(libs.androidx.lifecycle.runtimeCompose)
-                implementation("org.jetbrains.androidx.navigation:navigation-compose:2.8.0-alpha10")
+                implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
+                implementation("org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.8.0")
+                // Tetap gunakan ini untuk Navigation
+                implementation("org.jetbrains.androidx.navigation:navigation-compose:2.8.0-alpha08")
             }
         }
 
